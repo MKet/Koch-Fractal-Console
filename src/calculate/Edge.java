@@ -41,6 +41,6 @@ public class Edge implements Serializable{
         double blue = in.readDouble();
         double green = in.readDouble();
 
-        color = Color.color(red, blue, green);
+        color = Color.color(red, green, blue);
     }
 }
