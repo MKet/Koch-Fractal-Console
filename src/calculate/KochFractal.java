@@ -16,7 +16,13 @@ public class KochFractal extends Observable {
     private int level = 1;      // The current level of the fractal
     private int nrOfEdges = 3;  // The number of edges in the current level of the fractal
     private float hue;          // Hue value of color for next edge
-    private boolean cancelled;  // Flag to indicate that calculation has been cancelled 
+    private boolean cancelled;  // Flag to indicate that calculation has been cancelled
+
+    public KochFractal(int level) {
+        setLevel(level);
+    }
+
+    public KochFractal() { }
 
     private void drawKochEdge(double ax, double ay, double bx, double by, int n) {
         if (!cancelled) {
