@@ -43,4 +43,15 @@ public class Edge implements Serializable{
 
         color = Color.color(red, green, blue);
     }
+
+    @Override
+    public String toString() {
+        return        X1 +
+                "," + Y1 +
+                "," + X2 +
+                "," + Y2 +
+                "," + color.getRed() +
+                ',' + color.getBlue()+
+                ',' + color.getGreen();
+    }
 }

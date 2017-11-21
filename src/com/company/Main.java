@@ -4,10 +4,8 @@ import calculate.Edge;
 import calculate.KochFractal;
 import timeutil.TimeStamp;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
@@ -15,7 +13,8 @@ import java.util.Scanner;
 public class Main implements Observer {
     FileOutputStream fos;
     ObjectOutputStream oos;
-
+    BufferedOutputStream buffer;
+    PrintWriter p;
     public static void main(String[] args) throws IOException {
 	   Main main = new Main();
 	   main.Stuff();
@@ -41,7 +40,8 @@ public class Main implements Observer {
 
     public void calculateFractal(int level) throws IOException {
         fos = new FileOutputStream(""+level);
-        oos = new ObjectOutputStream(fos);
+        buffer = new BufferedOutputStream(fos);
+        p = new PrintWriter(buffer);
 
         TimeStamp time = new TimeStamp();
         time.setBegin("calculation start");
@@ -55,7 +55,7 @@ public class Main implements Observer {
         System.out.println("generating left edge");
         fractal.generateLeftEdge();
 
-        oos.close();
+        p.close();
         time.setEnd();
 
         System.out.println(time.toString());
@@ -63,11 +63,11 @@ public class Main implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        try {
+    //    try {
             Edge edge = (Edge)arg;
-            oos.writeObject(edge);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            p.print(edge.toString() + "\n");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
