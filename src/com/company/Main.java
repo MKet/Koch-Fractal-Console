@@ -2,12 +2,15 @@ package com.company;
 
 import calculate.Edge;
 import calculate.KochFractal;
+import timeutil.TimeStamp;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Scanner;
 
 public class Main implements Observer {
     FileOutputStream fos;
@@ -16,22 +19,32 @@ public class Main implements Observer {
     public static void main(String[] args) throws IOException {
 	   Main main = new Main();
 	   main.Stuff();
-	   main.Close();
-
 	   System.out.println("Successful");
     }
 
     public void Stuff() throws IOException {
         System.out.println("Koch level?!");
-        char read = (char) System.in.read();
 
-        int level = Integer.parseInt(""+ read);
+        Scanner scanner = new Scanner(System.in);
+        int level = scanner.nextInt();
 
         System.out.println("Level " + level + " chosen.");
 
-        fos = new FileOutputStream("edges.kfr");
+        calculateFractal(level);
+
+    }
+
+    public void BunchOfStuff() throws IOException {
+        for (int i = 1; i < 10; i++)
+            calculateFractal(i);
+    }
+
+    public void calculateFractal(int level) throws IOException {
+        fos = new FileOutputStream(""+level);
         oos = new ObjectOutputStream(fos);
 
+        TimeStamp time = new TimeStamp();
+        time.setBegin("calculation start");
         KochFractal fractal = new KochFractal(level);
         fractal.addObserver(this);
 
@@ -41,10 +54,11 @@ public class Main implements Observer {
         fractal.generateRightEdge();
         System.out.println("generating left edge");
         fractal.generateLeftEdge();
-    }
 
-    public void Close() throws IOException {
         oos.close();
+        time.setEnd();
+
+        System.out.println(time.toString());
     }
 
     @Override
