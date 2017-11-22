@@ -17,11 +17,11 @@ public class Main implements Observer {
     PrintWriter p;
     public static void main(String[] args) throws IOException {
 	   Main main = new Main();
-	   main.Stuff();
+	   main.calculateFractal();
 	   System.out.println("Successful");
     }
 
-    public void Stuff() throws IOException {
+    public void calculateFractal() throws IOException {
         System.out.println("Koch level?!");
 
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class Main implements Observer {
 
     }
 
-    public void BunchOfStuff() throws IOException {
+    public void calculateFractals() throws IOException {
         for (int i = 1; i < 10; i++)
             calculateFractal(i);
     }
